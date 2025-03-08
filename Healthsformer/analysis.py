@@ -10,7 +10,12 @@ encoding = {'ED_intime': 0, 'ED_outtime': 1, 'CT_time': 2, 'SW_time': 3, 'TPA_ti
             'discharge_time': 6, 'icuin': 7, 'icuout': 8}
 decoding = {0: 'ED_intime', 1: 'ED_outtime', 2: 'CT_time', 3: 'SW_time', 4: 'TPA_time', 5: 'admission_time',
             6: 'discharge_time', 7: 'icuin', 8: 'icuout'}
+
 def load(sequence_size=None):
+    """
+    This function streamlines the loading of preprocessed data and returns the desired cleaned data given the proper
+    input parameters.
+    """
     if sequence_size is None:
         event_sequences, tdeltas, sex_age = joblib.load("PreparedData/_raw_old_full_sequences.pkl")
     elif sequence_size == 4:
@@ -23,18 +28,27 @@ def load(sequence_size=None):
 
 
 def encode(event_sequences):
+    """
+    This function encodes the events to facilitate their processing.
+    """
     for i, events in enumerate(event_sequences):
         event_sequences[i] = [encoding[event] for event in events]
     return event_sequences
 
 
 def decode(event_sequences):
+    """
+    This function decodes the events to facilitate their understanding in visualizations.
+    """
     for i, events in enumerate(event_sequences):
         event_sequences[i] = [decoding[event] for event in events]
     return event_sequences
 
 
 def event_occurrence(event_sequences):
+    """
+    This function returns the percentage of occurrence of each event among all the generated sequences.
+    """
     if isinstance(event_sequences[0][0], str):
         event_sequences = encode(event_sequences)
 
@@ -48,7 +62,7 @@ def event_occurrence(event_sequences):
 
 
 def eae_distribution(event_sequences):
-    """event after event distribution"""
+    """This function displays the distribution of event precedence in the sequences."""
     if isinstance(event_sequences[0][0], str):
         event_sequences = encode(event_sequences)
 
@@ -71,7 +85,7 @@ def eae_distribution(event_sequences):
 
 
 def pos_distribution(event_sequences):
-    """Probability distribution of events over sequence positions"""
+    """This function displays the probability distribution of events over sequence positions"""
     if isinstance(event_sequences[0][0], str):
         event_sequences = encode(event_sequences)
 
@@ -95,6 +109,9 @@ def pos_distribution(event_sequences):
 
 
 def stay_duration(event_sequences, tdeltas):
+    """
+    This function calculates the stay duration of interval-based events.
+    """
     if isinstance(event_sequences[0][0], str):
         event_sequences = encode(event_sequences)
 
@@ -127,7 +144,7 @@ def stay_duration(event_sequences, tdeltas):
 
 
 def plot_histogram(event_sequences, tdeltas, target_event):
-    """returns time intervals in MINUTES"""
+    """This function returns time intervals in MINUTES"""
     periods = []
     if target_event == "icu":
         start = 7
@@ -167,7 +184,7 @@ def plot_histogram(event_sequences, tdeltas, target_event):
 
 
 def time_until_event(event_sequences, tdeltas, target_event):
-    """returns time intervals in MINUTES"""
+    """This function returns time intervals in MINUTES"""
     periods = []
     if target_event == "icu":
         start = 7
