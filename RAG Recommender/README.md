@@ -1,3 +1,4 @@
+# Project description
 This project aims at creation and orchestration of a RAG powered movie recommender system using Python, Airflow 3.0, and Weaviate.
 The process for this task is shown in the DAG Diagram image in the same directory as this file, and is also described below.
 
