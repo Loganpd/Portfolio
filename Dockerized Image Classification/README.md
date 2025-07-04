@@ -36,3 +36,37 @@ The application exposes a REST API that accepts JSON requests and returns JSON r
 - url: a URL to the image that is intended to be classified by the ResNet50 model.
 
 The response will contain the **top 3** most probable classes detected by the model.
+
+Example request:
+
+```bash
+curl -X 'POST' \
+  'http://localhost:8000/classify/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "url": "https://raw.githubusercontent.com/Loganpd/Portfolio/refs/heads/main/Dockerized%20Image%20Classification/images/img1.jpg"
+}'
+```
+
+Resulting response:
+{
+  "prediction": [
+    [
+      [
+        "hotdog, hot dog, red hot",
+        "85.1%"
+      ],
+      [
+        "strawberry",
+        "0.1%"
+      ],
+      [
+        "corkscrew, bottle screw",
+        "0.1%"
+      ]
+    ]
+  ]
+}
+
+You can use other images provided in this repository, or any other image link on the web for the automatic classification procedure.
