@@ -10,9 +10,8 @@ COPY . /app
 # Install the required Python packages
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose port 80 for the application
+# Expose port 8000 for the application
 EXPOSE 8000
 
 # Command to run the Uvicorn server
-#CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
